@@ -7,24 +7,37 @@ export default function Layout() {
   const hideNavRoutes = [
     '/splash', 
     '/login', 
+    '/cadastro',
+    '/recuperar-senha',
     '/onboarding', 
     '/solicitar',
     '/processando',
     '/confirmacao',
+    '/comparacao',
+    '/oficinas',
+    '/chats',
+    '/suporte',
     '/servico/detalhes',
     '/avaliacao',
+    '/avaliacoes',
     '/carrinho',
     '/checkout',
+    '/pagamento',
+    '/comprovante',
+    '/pedidos',
+    '/favoritos',
     '/veiculos/adicionar',
     '/historico',
-    '/configuracoes'
+    '/configuracoes',
+    '/editar-perfil'
   ];
   
   const shouldHideNav = hideNavRoutes.includes(location.pathname) || 
                         location.pathname.startsWith('/oficina/') ||
                         location.pathname.startsWith('/orcamento/') ||
                         location.pathname.startsWith('/chat/') ||
-                        location.pathname.startsWith('/produto/');
+                        location.pathname.startsWith('/produto/') ||
+                        location.pathname.startsWith('/veiculo/');
   
   const showNav = !shouldHideNav;
 

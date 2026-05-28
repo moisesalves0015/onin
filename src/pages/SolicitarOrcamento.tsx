@@ -1,10 +1,20 @@
 import { useState } from 'react';
-import { Camera, ChevronLeft, MapPin } from 'lucide-react';
+import { Camera, ChevronLeft, MapPin, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function SolicitarOrcamento() {
   const navigate = useNavigate();
   const [vistoria, setVistoria] = useState(false);
+  const [description, setDescription] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/processando');
+    }, 1500);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-dark-900 relative pb-24">
@@ -54,11 +64,13 @@ export default function SolicitarOrcamento() {
         </div>
 
         {/* Descrição */}
-        <div>
-          <label className="block text-[13px] font-medium text-text-secondary mb-2">Descrição do problema</label>
+        <div className="mb-6">
+          <label className="text-[14px] font-semibold text-white mb-2 block ml-1">Detalhes do problema</label>
           <textarea 
-            className="w-full bg-dark-800 border border-dark-500 rounded-xl px-4 py-3.5 text-[14px] text-white outline-none min-h-30 resize-none placeholder-text-tertiary"
-            placeholder="Descreva o problema do seu veículo..."
+            placeholder="Descreva o que está acontecendo com o seu carro... (Ex: Barulho ao frear, luz da injeção acesa)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full h-32 bg-dark-800 border border-dark-500 rounded-xl p-4 text-[14px] text-white outline-none focus:border-primary-500 transition-colors placeholder-text-tertiary resize-none"
           ></textarea>
         </div>
 
@@ -90,10 +102,11 @@ export default function SolicitarOrcamento() {
       {/* Button */}
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-dark-900 border-t border-dark-500 max-w-md mx-auto z-20">
         <button 
-          onClick={() => navigate('/processando')}
-          className="w-full bg-primary-500 text-white text-[15px] font-semibold py-4 rounded-xl active:scale-95 transition-all shadow-red-glow"
+          onClick={handleSubmit}
+          disabled={isLoading || !description}
+          className="w-full bg-primary-500 text-white text-[15px] font-semibold py-4 rounded-xl active:scale-95 transition-all shadow-red-glow disabled:opacity-50 disabled:active:scale-100 flex justify-center items-center h-13.5"
         >
-          Enviar solicitação
+          {isLoading ? <Loader2 className="animate-spin" size={22} /> : 'Enviar solicitação'}
         </button>
       </div>
     </div>

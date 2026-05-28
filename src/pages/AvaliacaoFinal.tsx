@@ -6,6 +6,15 @@ export default function AvaliacaoFinal() {
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [recomendaria, setRecomendaria] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleEnviar = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/home');
+    }, 800);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-dark-900 pb-24 animate-fade-in">
@@ -87,10 +96,11 @@ export default function AvaliacaoFinal() {
       {/* Button */}
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-dark-900 border-t border-dark-500 max-w-md mx-auto z-20">
         <button 
-          onClick={() => navigate('/')}
+          onClick={handleEnviar}
+          disabled={rating === 0 || isLoading}
           className={`w-full text-[15px] font-semibold py-4 rounded-xl transition-all ${rating > 0 ? 'bg-primary-500 text-white shadow-red-glow active:scale-95' : 'bg-dark-800 text-text-tertiary cursor-not-allowed border border-dark-500'}`}
         >
-          Enviar avaliação
+          {isLoading ? 'Enviando...' : 'Enviar avaliação'}
         </button>
       </div>
     </div>

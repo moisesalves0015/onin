@@ -41,7 +41,9 @@ export default function Perfil() {
         <h3 className="text-[12px] font-bold text-text-secondary mb-3">Meus veículos</h3>
         
         <div 
-          onClick={() => navigate('/veiculos')}
+          onClick={() => {
+            navigate('/veiculos');
+          }}
           className="bg-dark-900 border border-dark-500 rounded-2xl p-4 flex items-center justify-between mb-6 cursor-pointer hover:bg-dark-800 transition-colors"
         >
           <div className="flex items-center gap-4">

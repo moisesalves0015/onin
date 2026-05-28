@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function BottomNavigation() {
   const items = [
-    { icon: Home, label: 'Início', path: '/' },
+    { icon: Home, label: 'Início', path: '/home' },
     { icon: ClipboardList, label: 'Solicitações', path: '/orcamentos' },
     { icon: Store, label: 'Marketplace', path: '/marketplace' },
     { icon: Car, label: 'Veículos', path: '/veiculos' },

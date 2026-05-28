@@ -1,10 +1,29 @@
+import { useState } from 'react';
+import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setUser } = useAppContext();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    navigate('/');
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setTimeout(() => {
+      setUser({
+        name: 'Marcos',
+        email: email,
+        phone: '(11) 99999-9999',
+        isLoggedIn: true
+      });
+      setIsLoading(false);
+      navigate('/home');
+    }, 1500);
   };
 
   return (
@@ -36,20 +55,44 @@ export default function Login() {
         </div>
 
         {/* Botões Principais */}
-        <div className="space-y-4 mb-8">
+        <form onSubmit={handleLogin} className="space-y-4 mb-8">
+          <div className="relative">
+            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-text-tertiary" size={20} strokeWidth={1.5} />
+            <input 
+              type="email" 
+              placeholder="E-mail"
+              required
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className="w-full bg-dark-800 border border-dark-500 rounded-xl py-4 pl-12 pr-4 text-[15px] text-white outline-none focus:border-primary-500 transition-colors placeholder-text-tertiary"
+            />
+          </div>
+          <div className="relative">
+            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-text-tertiary" size={20} strokeWidth={1.5} />
+            <input 
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Senha"
+              required
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className="w-full bg-dark-800 border border-dark-500 rounded-xl py-4 pl-12 pr-12 text-[15px] text-white outline-none focus:border-primary-500 transition-colors placeholder-text-tertiary"
+            />
+            <button 
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-text-tertiary"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
           <button 
-            onClick={handleLogin}
-            className="w-full bg-primary-500 text-white text-[15px] font-semibold py-4 rounded-xl transition-all active:scale-95"
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-primary-500 text-white text-[15px] font-semibold py-4 rounded-xl transition-all active:scale-95 flex items-center justify-center disabled:opacity-70"
           >
-            Entrar
+            {isLoading ? <Loader2 className="animate-spin" /> : 'Entrar'}
           </button>
-          <button 
-            onClick={handleLogin}
-            className="w-full bg-dark-800 border border-dark-500 text-white text-[15px] font-semibold py-4 rounded-xl transition-all active:scale-95"
-          >
-            Criar conta
-          </button>
-        </div>
+        </form>
 
         {/* Divisor */}
         <div className="flex items-center gap-4 mb-8">

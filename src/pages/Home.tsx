@@ -1,8 +1,10 @@
 import { Bell, ArrowRight, MapPin, Clock, Sparkles, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user } = useAppContext();
 
   return (
     <div className="flex flex-col min-h-screen bg-dark-900 pb-24">
@@ -23,7 +25,7 @@ export default function Home() {
       <div className="px-6 pt-4">
         {/* Saudação */}
         <div className="mb-6">
-          <h2 className="text-[22px] font-bold text-white tracking-tight">Olá, Marcos! 👋</h2>
+          <h2 className="text-[22px] font-bold text-white tracking-tight">Olá, {user.name.split(' ')[0]}! 👋</h2>
           <p className="text-[14px] text-text-secondary mt-1">O que você precisa hoje?</p>
         </div>
 
@@ -51,7 +53,7 @@ export default function Home() {
             { icon: Sparkles, label: 'Estética automotiva' },
             { icon: Settings, label: 'Peças e acessórios' },
           ].map((cat, i) => (
-            <div key={i} className="flex flex-col items-center gap-2 cursor-pointer">
+            <div key={i} onClick={() => navigate('/oficinas')} className="flex flex-col items-center gap-2 cursor-pointer">
               <div className="w-16 h-16 bg-dark-800 border border-dark-500 rounded-2xl flex items-center justify-center">
                 <cat.icon size={24} className="text-text-secondary" strokeWidth={1.5} />
               </div>
@@ -62,7 +64,7 @@ export default function Home() {
 
         {/* Recomendadas */}
         <div>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-4 cursor-pointer" onClick={() => navigate('/oficinas')}>
             <h3 className="text-[15px] font-bold text-white">Oficinas recomendadas</h3>
             <span className="text-primary-500 text-[13px] font-medium cursor-pointer">Ver todas</span>
           </div>

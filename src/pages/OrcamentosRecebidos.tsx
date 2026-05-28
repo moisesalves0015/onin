@@ -89,12 +89,20 @@ export default function OrcamentosRecebidos() {
                   </span>
                 )}
               </div>
-              <button 
-                onClick={() => navigate(`/orcamento/${orc.id}`)}
-                className="bg-primary-500 text-white px-4 py-2 rounded-lg text-[13px] font-semibold active:scale-95 transition-all"
-              >
-                Ver detalhes
-              </button>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => navigate('/comparacao')}
+                  className="bg-dark-800 border border-dark-500 text-white text-[13px] font-semibold py-3 px-4 rounded-xl active:scale-95 transition-all w-1/3"
+                >
+                  Comparar
+                </button>
+                <button 
+                  onClick={() => navigate(`/orcamento/${orc.id}`)}
+                  className="bg-primary-500 text-white px-4 py-2 rounded-lg text-[13px] font-semibold active:scale-95 transition-all"
+                >
+                  Ver detalhes
+                </button>
+              </div>
             </div>
           </div>
         ))}
